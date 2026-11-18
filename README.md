@@ -1,4 +1,4 @@
-# 🏋️ Fitness Tracker
+# Fitness Tracker
 
 [![CI](https://github.com/TU_USUARIO/TU_REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/TU_USUARIO/TU_REPO/actions/workflows/ci.yml)
 ![Expo](https://img.shields.io/badge/Expo-React%20Native-000020?logo=expo)
@@ -18,7 +18,7 @@ CAPTURAS: sube 3 o 4 capturas de pantalla a docs/screenshots/ y descomenta esto.
 </p>
 -->
 
-## ✨ Funciones
+## Funciones
 
 **Registro de sesiones**
 - Cronómetro, ejercicios con tarjetas expandibles y series editables: peso, repeticiones, RIR y fallo muscular.
@@ -38,7 +38,7 @@ CAPTURAS: sube 3 o 4 capturas de pantalla a docs/screenshots/ y descomenta esto.
 
 > El mapa muscular muestra **volumen registrado** (peso × repeticiones), no fatiga ni recuperación. El color es relativo al músculo más trabajado del periodo, y los músculos secundarios cuentan la mitad.
 
-## 🧰 Tecnologías
+## Tecnologías
 
 | | |
 |---|---|
@@ -50,7 +50,7 @@ CAPTURAS: sube 3 o 4 capturas de pantalla a docs/screenshots/ y descomenta esto.
 | Gráficas y anatomía | `react-native-svg` |
 | Pruebas | [Vitest](https://vitest.dev) |
 
-## 🚀 Empezar
+## Empezar
 
 Necesitas [Node.js](https://nodejs.org) 20 o superior y la app **Expo Go** en tu teléfono.
 
@@ -84,7 +84,7 @@ Si faltan en tu `package.json`, agrégalos dentro de `"scripts"`:
 "typecheck": "tsc -p tsconfig.check.json"
 ```
 
-## 📦 Generar un APK para Android
+## Generar un APK para Android
 
 Se compila en la nube con [EAS Build](https://docs.expo.dev/build/introduction/); no hace falta Android Studio.
 
@@ -104,7 +104,7 @@ Antes de compilar, ejecuta `npm run fetch:exercises`: el catálogo no está en g
 
 > Los datos guardados en Expo Go **no pasan** a la app instalada: son almacenamientos distintos.
 
-## 🗂️ Estructura
+##  Estructura
 
 ```
 ├─ src/
@@ -126,7 +126,7 @@ Antes de compilar, ejecuta `npm run fetch:exercises`: el catálogo no está en g
 
 Las capas dependen en un solo sentido: `pantallas → stores → servicios → storage / utils`. La lógica de `services/` y `utils/` es pura y no depende de React Native, por eso se prueba con facilidad.
 
-## 🧮 Reglas de negocio
+##  Reglas de negocio
 
 - **Volumen** de una serie = peso × repeticiones. Solo cuentan las series **completadas**.
 - **RIR y fallo** siempre son consistentes: marcar fallo pone RIR 0, y un RIR mayor que 0 desmarca el fallo.
@@ -134,7 +134,7 @@ Las capas dependen en un solo sentido: `pantallas → stores → servicios → s
 - **PR:** el primer registro de un ejercicio no cuenta, porque no hay nada que superar.
 - **Peso corporal:** se permite peso 0. Esos músculos no quedan en gris en el mapa.
 
-## 💾 Cómo se guardan los datos
+##  Cómo se guardan los datos
 
 Todo vive en AsyncStorage, en el teléfono:
 
@@ -149,7 +149,7 @@ Todo vive en AsyncStorage, en el teléfono:
 
 Cada documento incluye una versión de esquema para poder migrarlo. Al leer, los datos se validan: lo dañado se ignora en lugar de romper la app, y si el índice de sesiones se pierde o se desactualiza, se reconstruye a partir de las sesiones guardadas.
 
-## ✅ Pruebas
+##  Pruebas
 
 ```bash
 npm test
@@ -161,7 +161,7 @@ Si no tienes el catálogo descargado, las pruebas que lo necesitan se **omiten**
 
 Lo que no se puede automatizar (cerrar la app deslizándola, apagar el teléfono, uso real en el gimnasio) está en [`docs/PRUEBAS_MANUALES.md`](docs/PRUEBAS_MANUALES.md).
 
-## ⚠️ Límites conocidos
+##  Límites conocidos
 
 - **Sin respaldo:** al ser todo local, desinstalar la app o borrar sus datos elimina el historial.
 - **Autoguardado:** escribe medio segundo después de cada cambio. Si la app se cierra de golpe justo después de teclear un valor, ese último cambio puede perderse; lo anterior no.
@@ -169,14 +169,14 @@ Lo que no se puede automatizar (cerrar la app deslizándola, apagar el teléfono
 - **Buscador:** entre resultados igual de relevantes salen primero los de nombre más corto.
 - **Hombros:** en el buscador se agrupan dentro de la categoría Brazos.
 
-## 🗺️ Ideas a futuro
+##  Ideas a futuro
 
 - Exportar e importar los datos (respaldo manual).
 - Temporizador de descanso entre series.
 - Dibujo anatómico más detallado.
 - Plantillas de rutinas.
 
-## 📚 Datos y créditos
+##  Datos y créditos
 
 ### Catálogo de ejercicios
 
