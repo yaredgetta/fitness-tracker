@@ -1,18 +1,52 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { useEffect } from 'react';
+import { AppState, View } from 'react-native';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useUserStore } from '../store/userStore';
+import { useHistoryStore } from '../store/historyStore';
+import { useActiveSessionStore } from '../store/activeSessionStore';
+import { useSettingsStore } from '../store/settingsStore';
+import { useCustomExerciseStore } from '../store/customExerciseStore';
+import { colors } from '../theme/theme';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+export default function RootLayout() {
+  const userReady = useUserStore((s) => s.hydrated);
+  const historyReady = useHistoryStore((s) => s.hydrated);
+  const activeReady = useActiveSessionStore((s) => s.hydrated);
+  const settingsReady = useSettingsStore((s) => s.hydrated);
+  const customReady = useCustomExerciseStore((s) => s.hydrated);
 
-SplashScreen.preventAutoHideAsync();
+  useEffect(() => {
+    void useUserStore.getState().hydrate();
+    void useHistoryStore.getState().hydrate();
+    void useActiveSessionStore.getState().hydrate();
+    void useSettingsStore.getState().hydrate();
+    void useCustomExerciseStore.getState().hydrate();
+  }, []);
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  // Al salir de la app, escribe de inmediato lo que esté pendiente de guardar.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (state) => {
+      if (state !== 'active') void useActiveSessionStore.getState().flush();
+    });
+    return () => sub.remove();
+  }, []);
+
+  if (!userReady || !historyReady || !activeReady || !settingsReady || !customReady) {
+    return <View style={{ flex: 1, backgroundColor: colors.background }} />;
+  }
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <>
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: colors.background },
+        }}
+      >
+        <Stack.Screen name="session" options={{ presentation: 'modal' }} />
+      </Stack>
+    </>
   );
 }

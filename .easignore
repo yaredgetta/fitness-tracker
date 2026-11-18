@@ -1,0 +1,63 @@
+# EAS Build usa este archivo EN LUGAR del .gitignore (solo para generar el APK).
+# Es una copia del .gitignore, más la última línea, que vuelve a incluir el
+# catálogo de ejercicios en la compilación aunque no esté en git.
+# Si no existiera este archivo, el APK saldría sin catálogo y la app no funcionaría.
+#
+# Primero ejecuta:  npm run fetch:exercises   (para tener el archivo en tu equipo)
+
+# ── Dependencias ──────────────────────────────────────────
+node_modules/
+
+# ── Expo / React Native ───────────────────────────────────
+.expo/
+.expo-shared/
+dist/
+web-build/
+expo-env.d.ts
+
+# Carpetas nativas generadas (se recrean con `npx expo prebuild`)
+/android
+/ios
+
+# ── Compilaciones y firmas (NUNCA se suben) ───────────────
+*.apk
+*.aab
+*.ipa
+*.jks
+*.keystore
+*.p8
+*.p12
+*.key
+*.mobileprovision
+credentials.json
+
+# ── Variables de entorno y secretos ───────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Pruebas y herramientas ────────────────────────────────
+coverage/
+*.tsbuildinfo
+.eslintcache
+
+# ── Registros ─────────────────────────────────────────────
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+*.log
+
+# ── Sistema operativo y editores ──────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+# (.vscode/ se deja versionable a propósito; descomenta si prefieres ignorarlo)
+# .vscode/
+
+# ── Catálogo de ejercicios ────────────────────────────────
+# No se sube al repositorio (licencia sin confirmar). Se descarga con:
+#   npm run fetch:exercises
+
+# ── Incluir el catálogo en la compilación (debe ir al final) ──
+!assets/data/exercises.json
